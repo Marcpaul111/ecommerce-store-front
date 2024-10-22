@@ -8,8 +8,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import CartItems from "./components/CartItems";
 import Summary from "./components/Summary";
+import EmptyCart from '../../../public/assets/images/emptycart.png'
 
-const Cart = () => {
+
+const CartPage = () => {
   const cart = useCart();
 
   const [isMounted, setIsMounted] = useState(false);
@@ -19,7 +21,9 @@ const Cart = () => {
   }, []);
 
   if (!isMounted) {
-    return null;
+    return (
+      <div className="">Loading</div>
+    );
   }
 
   return (
@@ -32,7 +36,7 @@ const Cart = () => {
             {cart.items.length === 0 && (
                 <div className="flex flex-col justify-center items-center gap-y-4 my-10">
                   <Image
-                    src="/assets/images/emptycart.png"
+                    src={EmptyCart}
                     alt=""
                     height={200}
                     width={200}
@@ -40,7 +44,7 @@ const Cart = () => {
                   <p className="text-neutral-500">No item in your cart</p>
 
                   <Button className="rounded-md mt-10">
-                    <Link href={"/"}>
+                    <Link href="/">
                         Shop Now
                     </Link>
                   </Button>
@@ -66,4 +70,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartPage;
