@@ -22,12 +22,13 @@ const Gallery:React.FC<GalleryProps> = ({
                 ))}
             </TabList>
         </div>
-        <TabPanels className="aspect-square w-full">
+        <TabPanels className="w-full">
                 {images.map((image) => (
                     <TabPanel key={image.id}>
-                        <div className="aspect-square relative h-full w-full sm:rounded-lg overflow-hidden">
+                        <div className="flex justify-center items-center relative h-full w-full sm:rounded-lg overflow-hidden border">
                             <Image 
-                            fill 
+                            height={400}
+                            width={400}
                             src={image.url} 
                             alt="Image"
                             className="object-cover object-center"

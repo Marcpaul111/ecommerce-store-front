@@ -7,6 +7,10 @@ const nextConfig = {
                 protocol: "https",
                 hostname: "ygdledjogeajmzgkcezr.supabase.co",
             },
+            {
+                protocol: "https",
+                hostname: "ecommerce-admin-git-main-codebility.vercel.app",
+            },
 
         ]
     },

@@ -4,6 +4,21 @@ export interface Banner {
     imageUrl: string;
 }
 
+export interface StoreImage {
+   
+    id: string;
+    url: string;
+   store: {
+    logoUrl: string;
+    name: string;
+    facebookUrl: string;
+    twitterUrl: string;
+    instagramUrl: string;
+   }
+
+}
+
+
 export interface Category {
     id: string;
     name: string;
@@ -15,7 +30,9 @@ export interface Product{
     name:string;
     category: Category;
     price:string;
+    description: string;
     isFeatured: string;
+    isNew: string;
     isArchived: string;
     size: Size;
     color: Color;

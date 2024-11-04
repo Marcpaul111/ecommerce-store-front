@@ -1,36 +1,54 @@
-import getCategory from "@/actions/get-category";
-import getColors from "@/actions/get-colors";
-import getProducts from "@/actions/get-products";
-import getSizes from "@/actions/get-size";
-import Banner from "@/components/Banner";
-import Container from "@/components/ui/container/container";
-import Filter from "./components/Filter";
-import NoResult from "@/components/ui/no-result";
-import ProductCard from "@/components/ui/product-card";
-import MobileFilter from "./components/MobileFilter";
+import { Metadata } from 'next'
+import getCategory from "@/actions/get-category"
+import getColors from "@/actions/get-colors"
+import getProducts from "@/actions/get-products"
+import getSizes from "@/actions/get-size"
+import Banner from "@/components/Banner"
+import Container from "@/components/ui/container/container"
+import Filter from "../../../../components/Filter"
+import NoResult from "@/components/ui/no-result"
+import ProductCard from "@/components/ui/product-card"
+import MobileFilter from "../../../../components/MobileFilter"
 
-export const revalidate = 0;
+export const revalidate = 0
 
 interface CategoryProps {
-  params: {
-    categoryId: string;
-  };
-  searchParams: {
-    colorId: string;
-    sizeId: string;
-  };
+  params: Promise<{ categoryId: string }>
+  searchParams: Promise<{ colorId?: string; sizeId?: string }>
 }
 
-const Category: React.FC<CategoryProps> = async ({ params, searchParams }) => {
-  const products = await getProducts({
-    categoryId: params.categoryId,
-    colorId: searchParams.colorId,
-    sizeId: searchParams.sizeId,
-  });
+export async function generateMetadata(
+  { params, searchParams }: CategoryProps
+): Promise<Metadata> {
+  const { categoryId } = await params
+  const category = await getCategory(categoryId)
 
-  const sizes = await getSizes();
-  const colors = await getColors();
-  const category = await getCategory(params.categoryId);
+  return {
+    title: category.name,
+    description: `Browse our ${category.name} collection`,
+  }
+}
+
+export default async function Category({ params, searchParams }: CategoryProps) {
+  const { categoryId } = await params
+  const { colorId, sizeId } = await searchParams
+
+  const productsPromise = getProducts({
+    categoryId,
+    colorId,
+    sizeId,
+  })
+
+  const sizesPromise = getSizes()
+  const colorsPromise = getColors()
+  const categoryPromise = getCategory(categoryId)
+
+  const [products, sizes, colors, category] = await Promise.all([
+    productsPromise,
+    sizesPromise,
+    colorsPromise,
+    categoryPromise
+  ])
 
   return (
     <div className="bg-white">
@@ -38,7 +56,6 @@ const Category: React.FC<CategoryProps> = async ({ params, searchParams }) => {
         <Banner data={category.banner} />
         <div className="px-4 sm:px-6 lg:px-8 pb-24">
           <div className="lg:grid lg:grid-cols-5 lg:gap-x-6">
-            {/* mobile filter */}
             <MobileFilter sizes={sizes} colors={colors} />
             <div className="hidden lg:block">
               <Filter valueKey="sizeId" name="Sizes" data={sizes} />
@@ -47,7 +64,7 @@ const Category: React.FC<CategoryProps> = async ({ params, searchParams }) => {
             <div className="mt-6 lg:col-span-4 lg:mt-0">
               {products.length === 0 && <NoResult />}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
                 {products.map((product) => (
                   <ProductCard key={product.id} data={product} />
                 ))}
@@ -57,7 +74,5 @@ const Category: React.FC<CategoryProps> = async ({ params, searchParams }) => {
         </div>
       </Container>
     </div>
-  );
-};
-
-export default Category;
+  )
+}

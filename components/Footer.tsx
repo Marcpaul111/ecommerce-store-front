@@ -1,13 +1,29 @@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Facebook, Instagram, Twitter } from "lucide-react"
+import getStoreBanners from "@/actions/get-store-banners"
+import Image from "next/image"
 
-export default function Footer() {
+
+
+  const Footer = async () => {
+
+  const storeData = await getStoreBanners();
+
+  const storeName = storeData[0]?.store.name;
+  const logo = storeData[0]?.store.logoUrl;
+  const facebook = storeData[0]?.store.facebookUrl;
+  const twitter = storeData[0]?.store.twitterUrl;
+  const instagram = storeData[0]?.store.instagramUrl;
+  // console.log(storeData);
+  
   return (
-    <footer className="bg-[#E6E6FA] text-gray-600 py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#3d3e51] text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Shop</h3>
+          <h3 className="text-lg font-semibold">
+            <Image height={40} width={40} src={logo} alt="" />
+          </h3>
           <ul className="space-y-2">
             <li><a href="#" className="hover:text-gray-900 transition-colors">New Arrivals</a></li>
             <li><a href="#" className="hover:text-gray-900 transition-colors">Bestsellers</a></li>
@@ -41,15 +57,15 @@ export default function Footer() {
             <Button type="submit" variant="secondary">Subscribe</Button>
           </form>
           <div className="flex space-x-4 mt-4">
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href={facebook} className="text-white hover:text-gray-900 transition-colors">
               <Facebook className="h-6 w-6" />
               <span className="sr-only">Facebook</span>
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href={instagram} className="text-white hover:text-gray-900 transition-colors">
               <Instagram className="h-6 w-6" />
               <span className="sr-only">Instagram</span>
             </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <a href={twitter} className="text-white hover:text-gray-900 transition-colors">
               <Twitter className="h-6 w-6" />
               <span className="sr-only">Twitter</span>
             </a>
@@ -57,11 +73,13 @@ export default function Footer() {
         </div>
       </div>
       <div className="mt-12 pt-8 border-t border-gray-200 text-center text-sm">
-        <p>&copy; 2023 Your Fashion Brand. All rights reserved.</p>
+        <p>&copy; 2024 {storeName}. All rights reserved.</p>
       </div>
     </footer>
   )
 }
+
+export default Footer;
 
 
 

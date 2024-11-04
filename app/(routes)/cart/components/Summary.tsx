@@ -1,13 +1,24 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { Loader2, ShoppingCart } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart-store";
-import axios from "axios";
-import { Loader2 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Summary = () => {
   const searchParams = useSearchParams();
@@ -27,7 +38,7 @@ const Summary = () => {
   }, [searchParams, removeAll]);
 
   const total = items.reduce((total, item) => {
-    return total + Number(item.price);
+    return total + Number(item.price) * item.quantity;
   }, 0);
 
   const onCheckout = async () => {
@@ -36,10 +47,12 @@ const Summary = () => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
         {
-          productIds: items.map((item) => item.id),
+          productIds: items.flatMap((item) =>
+            Array(item.quantity).fill(item.id)
+          ),
         }
       );
-      
+
       if (response.data.url) {
         window.location.href = response.data.url;
       } else {
@@ -53,28 +66,60 @@ const Summary = () => {
     }
   };
 
-  return (
-    <div className="mt-16 rounded-lg bg-gray-200 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8 shadow-lg">
-      <h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
+  const { user } = useUser();
 
-      <div className="mt-6 space-y-4">
-        <div className="flex items-center justify-between border-t-2 border-gray-500 pt-4">
-          <div className="text-base font-medium text-gray-900">Order Total</div>
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Order Summary</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {items.map((item) => (
+          <div key={item.id} className="flex justify-between text-sm">
+            <span>
+              {item.name} (x{item.quantity})
+            </span>
+            <Currency value={Number(item.price) * item.quantity} />
+          </div>
+        ))}
+        <Separator />
+        <div className="flex items-center justify-between font-medium">
+          <span>Order Total</span>
           <Currency value={total} />
         </div>
-      </div>
-      <div className="flex justify-center">
-        <Button 
-          className="my-6 w-32" 
-          onClick={onCheckout} 
-          disabled={isLoading || items.length === 0}
-        >
-          {isLoading ? (
-            <p className="flex gap-x-2"><Loader2 className="h-2 w-2 animate-spin"/> <span>Checking out...</span></p>
-          ) : "Checkout"}
-        </Button>
-      </div>
-    </div>
+      </CardContent>
+      <CardFooter>
+        {/* if user is loggedin */}
+        {user && (
+          <Button
+            className="w-full"
+            onClick={onCheckout}
+            disabled={isLoading || items.length === 0}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Checking out...
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Checkout
+              </>
+            )}
+          </Button>
+        )}
+
+        {/* if not logged in */}
+        {!user && (
+          <Button className="w-full">
+            <Link href="/sign-in" >
+              Sign In
+            </Link>
+          </Button>
+        )}
+      </CardFooter>
+    </Card>
   );
 };
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Product } from "@/types";
 import Image from "next/image";
-import { ShoppingCart, Heart, Eye } from "lucide-react";
+import { ShoppingCart, Heart, Eye, X } from "lucide-react";
 import Currency from "@/components/ui/currency";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler } from "react";
@@ -19,12 +19,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-interface ProductCardProps {
+interface WishListProductsProps {
   data: Product;
   showBadge?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
+const WishListProducts: React.FC<WishListProductsProps> = ({
   data,
   showBadge = true,
 }) => {
@@ -45,11 +45,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const handleAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     cart.addItem(data);
+    cart.removeFromWishlist(data.id);
   };
 
-  const handleAddToWishlist: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const handleRemoveToWishlist: MouseEventHandler<HTMLButtonElement> = (
+    event
+  ) => {
     event.stopPropagation();
-    cart.addToWishlist(data);
+    cart.removeFromWishlist(data.id);
   };
 
   return (
@@ -64,14 +67,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Image
           alt={data.name}
           src={data?.images?.[0].url}
-          height={100}
-          width={150}
-          className=" object-cover object-center h-auto w-auto justify-self-center transition-transform duration-300 group-hover:scale-110"
+          height={220}
+          width={200}
+          className=" object-cover object-center justify-self-center transition-transform duration-300 group-hover:scale-110"
         />
         {isHovered && (
           <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300">
             <div className="absolute top-4 right-4 flex justify-between items-end">
               <div className=" flex flex-col space-y-4">
+                <TooltipProvider>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    onClick={handleRemoveToWishlist}
+                  >
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <X className="h-4 w-4" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Remove From Wishlist</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </Button>
+                </TooltipProvider>
+
                 <TooltipProvider>
                   <Tooltip>
                     <Button variant="secondary" size="icon" onClick={onPreview}>
@@ -83,19 +103,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                       <p>Quick View</p>
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
-
-                <TooltipProvider>
-                  <Button variant="secondary" size="icon" onClick={handleAddToWishlist}>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Heart className="h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add To Wishlist</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </Button>
                 </TooltipProvider>
               </div>
             </div>
@@ -111,7 +118,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Description */}
       <div className="space-y-1">
-        <p className="text-sm text-muted-foreground text-center">{data.category?.name}</p>
+        <p className="text-sm text-muted-foreground text-center">
+          {data.category?.name}
+        </p>
         <p className="font-semibold truncate">{data.name}</p>
         <Currency value={data.price} />
       </div>
@@ -123,4 +132,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
   );
 };
 
-export default ProductCard;
+export default WishListProducts;

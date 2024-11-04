@@ -1,7 +1,7 @@
 "use client"
 
 import { ShoppingCart } from "lucide-react";
-
+import parse from 'html-react-parser'
 
 import { Product } from "@/types";
 import Currency from "@/components/ui/currency";
@@ -14,19 +14,20 @@ interface ProductInfoProps {
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ data }) => {
 
-  const cart = useCart();
+ 
+  const cart = useCart()
 
-  const handleAddItemToCart = () => {
-    cart.addItem(data)
-  }
+  const handleAddToCart = () => {
 
+    cart.addItem(data);
+  };
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
       <div className="flex mt-3 items-end justify-between">
-        <p className="text-2xl text-gray-900">
+        <div className="text-2xl text-gray-900">
           <Currency value={data.price} />
-        </p>
+        </div>
       </div>
       <hr className="my-4" />
       <div className="flex flex-col gap-y-6">
@@ -41,9 +42,12 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ data }) => {
           />
         </div>
       </div>
+      <div className="my-3 font-semibold text-gray-600 text-opacity-80 text-base">
+        {parse(data.description)}
+      </div>
       <div className="mt-10 flex gap-x-3">
-        <Button className="flex items-center gap-x-2 rounded-lg">
-          Add To Cart
+        <Button onClick={handleAddToCart}  className="flex items-center gap-x-2 rounded-lg">
+          Add To Cart 
           <ShoppingCart />
         </Button>
       </div>
