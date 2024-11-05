@@ -69,44 +69,35 @@ const WishListProducts: React.FC<WishListProductsProps> = ({
           src={data?.images?.[0].url}
           height={220}
           width={200}
-          className=" object-cover object-center justify-self-center transition-transform duration-300 group-hover:scale-110"
+          className=" object-cover h- w-[180px] object-center justify-self-center transition-transform duration-300 group-hover:scale-110"
         />
         {isHovered && (
-          <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300">
-            <div className="absolute top-4 right-4 flex justify-between items-end">
-              <div className=" flex flex-col space-y-4">
-                <TooltipProvider>
-                  <Button
-                    variant="secondary"
-                    size="icon"
-                    onClick={handleRemoveToWishlist}
-                  >
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <X className="h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Remove From Wishlist</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </Button>
-                </TooltipProvider>
-
-                <TooltipProvider>
+          <TooltipProvider>
+            <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300">
+              <div className="absolute top-4 right-4 flex justify-between items-end">
+                <div className=" flex flex-col space-y-4">
                   <Tooltip>
-                    <Button variant="secondary" size="icon" onClick={onPreview}>
-                      <TooltipTrigger>
-                        <Eye className="h-4 w-4" />
-                      </TooltipTrigger>
-                    </Button>
+                    <TooltipTrigger onClick={handleRemoveToWishlist} className="rounded-full shadow-md text-black p-2 bg-white">
+                      <X className="h-4 w-4" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Remove From Wishlist</p>
+                    </TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger onClick={onPreview} className="rounded-full shadow-md text-black p-2 bg-white">
+                      <Eye className="h-4 w-4" />
+                    </TooltipTrigger>
+
                     <TooltipContent>
                       <p>Quick View</p>
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
+                </div>
               </div>
             </div>
-          </div>
+          </TooltipProvider>
         )}
         {/* Conditionally render the badge */}
         {showBadge && (

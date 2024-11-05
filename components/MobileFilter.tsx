@@ -11,6 +11,9 @@ import Filter from "./Filter";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 
@@ -31,13 +34,16 @@ const MobileFilter: React.FC<MobileFilterProps> = ({ sizes, colors }) => {
   return (
     <>
       <Sheet>
-        <Button className="lg:hidden">
-        <SheetTrigger className="flex gap-x-2 items-center">
+        <SheetTrigger className="flex gap-x-2 items-center lg:hidden bg-black text-white px-4 py-2 rounded-lg">
           Filters
           <Plus size={20} />
         </SheetTrigger>
-        </Button>
+
         <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Filters</SheetTitle>
+            <SheetDescription></SheetDescription>
+          </SheetHeader>
           <div className="">
             {/* filter */}
             <div className="p-4">
@@ -47,7 +53,6 @@ const MobileFilter: React.FC<MobileFilterProps> = ({ sizes, colors }) => {
           </div>
         </SheetContent>
       </Sheet>
-      
     </>
   );
 };

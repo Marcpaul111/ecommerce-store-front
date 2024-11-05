@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, MouseEventHandler } from "react";
 import { Product } from "@/types";
 import Image from "next/image";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
 import Currency from "@/components/ui/currency";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler } from "react";
 import usePreviewModal from "@/hooks/user-modal-preview";
 import useCart from "@/hooks/use-cart-store";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-
 import {
   Tooltip,
   TooltipContent,
@@ -22,11 +19,13 @@ import {
 interface ProductCardProps {
   data: Product;
   showBadge?: boolean;
+  isCarouselUrl?: boolean; 
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   data,
   showBadge = true,
+  isCarouselUrl = false,
 }) => {
   const cart = useCart();
   const router = useRouter();
@@ -53,73 +52,78 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <div
-      className="bg-white group cursor-pointer space-y-4 relative min-h-[250px]"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={handleClick}
-    >
-      {/* Images */}
-      <div className="aspect-square relative flex items-center justify-center overflow-hidden">
-        <Image
-          alt={data.name}
-          src={data?.images?.[0].url}
-          height={100}
-          width={150}
-          className=" object-cover object-center h-auto w-auto justify-self-center transition-transform duration-300 group-hover:scale-110"
-        />
-        {isHovered && (
-          <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300">
-            <div className="absolute top-4 right-4 flex justify-between items-end">
-              <div className=" flex flex-col space-y-4">
-                <TooltipProvider>
+    <TooltipProvider>
+      <div
+        className="bg-white group cursor-pointer space-y-4 relative min-h-[250px]"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={!isCarouselUrl ? handleClick : undefined} 
+      >
+        {/* Images */}
+        <div className="aspect-square relative flex items-center justify-center overflow-hidden">
+          <Image
+            alt={data.name}
+            src={data?.images?.[0].url}
+            height={100}
+            width={150}
+            className="object-cover object-center h-auto w-[180px] justify-self-center transition-transform duration-300 group-hover:scale-110"
+          />
+          {isHovered && (
+            <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300">
+              <div className="absolute top-4 right-4 flex justify-between items-end">
+                <div className="flex flex-col space-y-4">
                   <Tooltip>
-                    <Button variant="secondary" size="icon" onClick={onPreview}>
-                      <TooltipTrigger>
-                        <Eye className="h-4 w-4" />
-                      </TooltipTrigger>
-                    </Button>
+                    <TooltipTrigger onClick={onPreview} className="rounded-full shadow-md text-black p-2 bg-white">
+                      <Eye className="h-4 w-4" />
+                    </TooltipTrigger>
+
                     <TooltipContent>
                       <p>Quick View</p>
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
 
-                <TooltipProvider>
-                  <Button variant="secondary" size="icon" onClick={handleAddToWishlist}>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Heart className="h-4 w-4" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Add To Wishlist</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </Button>
-                </TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger onClick={handleAddToWishlist} className="rounded-full shadow-md text-black p-2 bg-white">
+                      <Heart className="h-4 w-4" />
+                    </TooltipTrigger>
+
+                    <TooltipContent>
+                      <p>Add To Wishlist</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        {/* Conditionally render the badge */}
-        {showBadge && (
-          <Badge className="absolute top-4 left-4 bg-red-500 text-white animate-pulse">
-            New
-          </Badge>
-        )}
-      </div>
+          )}
 
-      {/* Description */}
-      <div className="space-y-1">
-        <p className="text-sm text-muted-foreground text-center">{data.category?.name}</p>
-        <p className="font-semibold truncate">{data.name}</p>
-        <Currency value={data.price} />
+          {showBadge && (
+            <div className="absolute top-0 left-0 bg-red-500 text-white px-5 text-sm">
+              New
+            </div>
+          )}
+        </div>
+
+        {/* Description */}
+        <div className="space-y-1">
+          <p className="text-sm text-muted-foreground text-center">
+            {data.category?.name}
+          </p>
+          <p
+            className="font-semibold truncate hover:underline hover:font-bold"
+            onClick={isCarouselUrl ? handleClick : undefined} 
+          >
+            {data.name}
+          </p>
+          <Currency value={data.price} />
+        </div>
+
+        {/* Separate button to add to cart */}
+        <Button size="icon" className="w-full" onClick={handleAddToCart}>
+          <ShoppingCart className="h-4 w-4" />
+          Add To Cart
+        </Button>
       </div>
-      <Button size="icon" className="w-full" onClick={handleAddToCart}>
-        <ShoppingCart className="h-4 w-4" />
-        Add To Cart
-      </Button>
-    </div>
+    </TooltipProvider>
   );
 };
 

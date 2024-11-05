@@ -5,7 +5,14 @@ import getCategories from "@/actions/get-categories";
 import NavbarActions from "@/components/NavbarActions";
 import getStoreBanners from "@/actions/get-store-banners";
 import Image from "next/image";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
+  SheetHeader,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { HeartIcon, MenuIcon } from "lucide-react";
 import MobileNav from "./mobileNav";
@@ -26,13 +33,18 @@ const Navbar = async () => {
             </Button>
           </SheetTrigger>
           <SheetContent side="left">
-            <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
-              <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2 ">
-                <p className="font-bold text-xl">
-                  <Image src={logoUrl} width={60} height={100} alt="" />
-                </p>
-              </Link>
-              <span className="sr-only">Acme Inc</span>
+            <SheetHeader>
+              <SheetTitle></SheetTitle>
+              <SheetDescription></SheetDescription>
+            </SheetHeader>
+            <Link
+              href="#"
+              className="mr-6 hidden lg:flex ml-4 lg:ml-0 gap-x-2 "
+              prefetch={false}
+            >
+              <p className="font-bold text-xl">
+                <Image src={logoUrl} width={60} height={100} alt="" className="h-auto w-auto object-cover" />
+              </p>
             </Link>
             <div className="grid gap-2 py-6">
               <MobileNav data={categories} />
@@ -47,7 +59,6 @@ const Navbar = async () => {
         <MainNav data={categories} />
         <NavbarActions />
       </header>
-     
     </div>
   );
 };

@@ -24,25 +24,20 @@ const ImageSlider: React.FC<ImageSliderProps> = ({images}) =>{
         <SliderContainer>
             {images.map((image) => (
                 <Slider className="w-full" key={image.id}>
-                <div className="dark:bg-black bg-white md:h-[500px] sm:h-full h-[300px] w-full">
+                <div className="dark:bg-black bg-white md:h-[500px] sm:h-full h-[400px] w-full">
                   <Image
                     src={image.url}
                     width={1400}
-                    height={800}
+                    height={900}
                     alt="image"
-                    className="h-full object-cover rounded-lg w-full"
+                    className="object-cover rounded-lg w-full h-full"
                   />
                 </div>
               </Slider>
             ))}
           
         </SliderContainer>
-        <SliderPrevButton className="absolute top-[50%] p-2 border-2 rounded-full left-4 dark:bg-black/25 dark:border-white  bg-white/25 backdrop-blur-sm text-black disabled:opacity-20">
-          <ChevronLeft className="w-8 h-8 " />
-        </SliderPrevButton>
-        <SliderNextButton className="absolute right-4 p-2 border-2 rounded-full top-[50%] dark:bg-black/25 dark:border-white  bg-white/25 backdrop-blur-sm text-black disabled:opacity-20">
-          <ChevronRight className="w-8 h-8" />
-        </SliderNextButton>
+  
         <div className="flex justify-center py-2">
           <SliderDotButton />
         </div>

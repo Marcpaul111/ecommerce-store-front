@@ -7,9 +7,12 @@ import Filter from "@/components/Filter";
 import MobileFilter from "@/components/MobileFilter";
 import NoResult from "@/components/ui/no-result";
 import ProductCard from "@/components/ui/product-card";
-import { Product, Size, Color } from "@/types";
 
 export const revalidate = 0;
+
+interface FeaturedProductsProps {
+  searchParams: Promise<{ colorId?: string; sizeId?: string }>;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -18,10 +21,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const FeaturedProducts = async () => {
-  const products = await getProducts({ isFeatured: true });
-  const sizes = await getSizes();
-  const colors = await getColors();
+const FeaturedProducts = async ({ searchParams }: FeaturedProductsProps) => {
+  const { colorId, sizeId } = await searchParams;
+
+  const [products, sizes, colors] = await Promise.all([
+    getProducts({ isFeatured: true, colorId, sizeId }),
+    getSizes(),
+    getColors(),
+  ]);
 
   return (
     <Container>
@@ -43,7 +50,7 @@ const FeaturedProducts = async () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
                 {products.map((product) => (
-                  <ProductCard key={product.id} data={product} showBadge={false}/>
+                  <ProductCard key={product.id} data={product} showBadge={false} />
                 ))}
               </div>
             )}

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { HeartIcon, Search, UserIcon } from "lucide-react";
+import { HeartIcon, Search, SearchIcon, UserIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,7 @@ import {
 import { toast } from "react-hot-toast";
 import useCart from "@/hooks/use-cart-store";
 import { CartItems } from "@/components/CartItem";
-import SearchProduct from "./SeearchProduct";
+import SearchProduct from "@/components/SeearchProduct";
 import getProducts from "@/actions/get-products";
 import { Product } from "@/types";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
@@ -74,23 +74,20 @@ const NavbarActions = () => {
     <div className="flex items-center gap-x-4 ml-auto">
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant="outline" size="icon">
-            <Search className="h-4 w-4" />
-          </Button>
+          <SearchIcon size={30} />
         </PopoverTrigger>
-        <PopoverContent className="w-80">
+        <PopoverContent className="w-[90vw] max-w-4xl">
           <div className="space-y-4">
-            <Input
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
             {isSearching ? (
               <div className="text-center">Searching...</div>
             ) : error ? (
               <div className="text-center text-red-500">{error}</div>
             ) : (
-              <SearchProduct products={products} />
+              <SearchProduct
+                products={products}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
             )}
           </div>
         </PopoverContent>
@@ -102,13 +99,9 @@ const NavbarActions = () => {
         </span>
       </Link>
       <CartItems />
-      {/* User Button */}
-      {/* IF signed in */}
       <SignedIn>
         <UserButton />
       </SignedIn>
-
-      {/* if signed out */}
       <SignedOut>
         <SignInButton>
           <UserIcon size={30} cursor={"pointer"} />

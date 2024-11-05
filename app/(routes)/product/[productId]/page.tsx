@@ -48,7 +48,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
           <hr className="my-10" />
 
-          <ProductLists title="Related Items" items={suggestedProducts} />
+          <ProductLists title="Related Items" items={suggestedProducts} isCarousel={true} />
         </div>
       </Container>
     </div>
