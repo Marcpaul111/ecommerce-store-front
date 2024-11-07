@@ -18,11 +18,11 @@ import Image from "next/image"
   // console.log(storeData);
   
   return (
-    <footer className="bg-[#3d3e51] text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-[#3d3e51] text-white py-12 px-4 sm:px-6 lg:px-8 z-30">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="space-y-4">
           <h3 className="text-lg font-semibold">
-            <Image height={40} width={40} src={logo} alt="" />
+            <Image height={40} width={40} src={logo} alt="" className="h-auto w-auto" />
           </h3>
           <ul className="space-y-2">
             <li><a href="#" className="hover:text-gray-900 transition-colors">New Arrivals</a></li>

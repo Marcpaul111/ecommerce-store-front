@@ -8,6 +8,8 @@ import React from "react";
 import ImageSlider from "@/components/galleryCarousel";
 import getStoreBanners from "@/actions/get-store-banners";
 import Link from "next/link";
+import MarqueeComments from "@/components/comment-marquee";
+import Brands from "@/components/Brands";
 
 export const revalidate = 0;
 
@@ -34,6 +36,8 @@ const HomePage = async () => {
           />
         </div>
 
+        <Brands />
+
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8 mt-12">
           <ProductLists
             items={newProducts}
@@ -44,6 +48,9 @@ const HomePage = async () => {
           />
         </div>
       </div>
+
+    <MarqueeComments />
+
     </Container>
   );
 };

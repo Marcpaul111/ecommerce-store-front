@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <TooltipProvider>
       <div
-        className="bg-white group cursor-pointer space-y-4 relative min-h-[250px]"
+        className="bg-white group cursor-pointer space-y-4 relative min-h-[250px] hover:shadow-md p-1"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={!isCarouselUrl ? handleClick : undefined} 
@@ -66,7 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
             src={data?.images?.[0].url}
             height={100}
             width={150}
-            className="object-cover object-center h-auto w-[180px] justify-self-center transition-transform duration-300 group-hover:scale-110"
+            className="object-cover object-center h-auto w-auto justify-self-center transition-transform duration-300 group-hover:scale-110"
           />
           {isHovered && (
             <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity duration-300">
@@ -104,7 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Description */}
-        <div className="space-y-1">
+        <div className="space-y-1 px-2">
           <p className="text-sm text-muted-foreground text-center">
             {data.category?.name}
           </p>

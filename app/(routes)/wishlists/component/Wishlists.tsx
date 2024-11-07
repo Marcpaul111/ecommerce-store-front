@@ -77,7 +77,10 @@ const WishListProducts: React.FC<WishListProductsProps> = ({
               <div className="absolute top-4 right-4 flex justify-between items-end">
                 <div className=" flex flex-col space-y-4">
                   <Tooltip>
-                    <TooltipTrigger onClick={handleRemoveToWishlist} className="rounded-full shadow-md text-black p-2 bg-white">
+                    <TooltipTrigger
+                      onClick={handleRemoveToWishlist}
+                      className="rounded-full shadow-md text-black p-2 bg-white"
+                    >
                       <X className="h-4 w-4" />
                     </TooltipTrigger>
                     <TooltipContent>
@@ -86,7 +89,10 @@ const WishListProducts: React.FC<WishListProductsProps> = ({
                   </Tooltip>
 
                   <Tooltip>
-                    <TooltipTrigger onClick={onPreview} className="rounded-full shadow-md text-black p-2 bg-white">
+                    <TooltipTrigger
+                      onClick={onPreview}
+                      className="rounded-full shadow-md text-black p-2 bg-white"
+                    >
                       <Eye className="h-4 w-4" />
                     </TooltipTrigger>
 
@@ -101,9 +107,9 @@ const WishListProducts: React.FC<WishListProductsProps> = ({
         )}
         {/* Conditionally render the badge */}
         {showBadge && (
-          <Badge className="absolute top-4 left-4 bg-red-500 text-white animate-pulse">
+          <div className="absolute top-0 left-0 bg-red-500 text-white px-5 text-sm">
             New
-          </Badge>
+          </div>
         )}
       </div>
 
