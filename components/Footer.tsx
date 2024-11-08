@@ -8,7 +8,6 @@ import Image from "next/image"
 
   const Footer = async () => {
 
-
   const {desktopBanners} = await getStoreBanners();
 
   const logoUrl = desktopBanners[0]?.logoUrl || null; 
