@@ -14,14 +14,31 @@ import {
   SheetHeader,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { HeartIcon, MenuIcon } from "lucide-react";
+import { HeartIcon, MenuIcon, Store } from "lucide-react";
 import MobileNav from "./mobileNav";
 
 const Navbar = async () => {
   const categories = await getCategories();
-  const storeBanners = await getStoreBanners();
+  const {desktopBanners} = await getStoreBanners();
 
-  const logoUrl = storeBanners[0]?.store.logoUrl;
+  const logoUrl = desktopBanners[0]?.logoUrl || null; 
+
+  const LogoComponent = () => {
+    if (logoUrl) {
+      return (
+        <Image 
+          src={logoUrl} 
+          width={60} 
+          height={60} 
+          alt="Store logo"
+          className="h-12 w-auto object-contain"
+          priority
+        />
+      );
+    }
+    return <Store className="h-8 w-8" />;
+  };
+
   return (
     <div className="border-b shadow-md fixed top-0 w-full z-50 bg-white">
       <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6">
@@ -43,7 +60,7 @@ const Navbar = async () => {
               prefetch={false}
             >
               <p className="font-bold text-xl">
-                <Image src={logoUrl} width={60} height={100} alt="" className="h-auto w-auto object-cover" />
+               <LogoComponent />
               </p>
             </Link>
             <div className="grid gap-2 py-6">
@@ -53,7 +70,7 @@ const Navbar = async () => {
         </Sheet>
         <Link href="#" className="mr-6 hidden lg:flex" prefetch={false}>
           <div className="ml-4 flex lg:ml-0 gap-x-2 ">
-            <Image src={logoUrl} width={60} height={100} alt="" />
+           <LogoComponent />
           </div>
         </Link>
         <MainNav data={categories} />

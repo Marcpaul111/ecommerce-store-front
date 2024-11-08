@@ -18,12 +18,15 @@ const HomePage = async () => {
   const newProducts = await getProducts({ isNew: true });
   // const banner = await getBanners("2dd90fc1-84f8-4fb6-881d-312b543bccec");
 
-  const storeBanners = await getStoreBanners();
+
+
+  const {desktopBanners, mobileBanners} = await getStoreBanners()
+  
 
   return (
     <Container>
       <div className="space-y-10 pb-10">
-        <ImageSlider images={storeBanners} />
+        <ImageSlider images={desktopBanners} mobileImages={mobileBanners} />
 
         {/* <Banner data={banner} /> */}
 
