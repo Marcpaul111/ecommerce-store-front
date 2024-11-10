@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Loader2, ShoppingCart } from "lucide-react";
+import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,14 +19,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart-store";
-import { useUser } from "@clerk/nextjs";
-import Link from "next/link";
 
 const Summary = () => {
   const searchParams = useSearchParams();
   const items = useCart((state) => state.items);
   const removeAll = useCart((state) => state.removeAll);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
     if (searchParams.get("success")) {
@@ -47,9 +48,10 @@ const Summary = () => {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
         {
-          productIds: items.flatMap((item) =>
-            Array(item.quantity).fill(item.id)
-          ),
+          items: items.map(item => ({
+            id: item.id,
+            quantity: item.quantity
+          }))
         }
       );
 
@@ -65,8 +67,6 @@ const Summary = () => {
       setIsLoading(false);
     }
   };
-
-  const { user } = useUser();
 
   return (
     <Card>
@@ -89,8 +89,7 @@ const Summary = () => {
         </div>
       </CardContent>
       <CardFooter>
-        {/* if user is loggedin */}
-        {user && (
+        {user ? (
           <Button
             className="w-full"
             onClick={onCheckout}
@@ -108,14 +107,9 @@ const Summary = () => {
               </>
             )}
           </Button>
-        )}
-
-        {/* if not logged in */}
-        {!user && (
-          <Button className="w-full">
-            <Link href="/sign-in" >
-              Sign In
-            </Link>
+        ) : (
+          <Button asChild className="w-full">
+            <Link href="/sign-in">Sign In</Link>
           </Button>
         )}
       </CardFooter>

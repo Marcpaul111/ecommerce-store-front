@@ -18,7 +18,10 @@ const CartPage = () => {
   const cart = useCart();
   const [isMounted, setIsMounted] = useState(false);
 
+const cartItems = cart.items.map(item => item)
+console.log(cartItems);
 
+  
 
   useEffect(() => {
     setIsMounted(true);

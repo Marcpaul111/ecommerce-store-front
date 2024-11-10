@@ -28,10 +28,10 @@ const Navbar = async () => {
       return (
         <Image 
           src={logoUrl} 
-          width={60} 
-          height={60} 
+          width={100} 
+          height={100} 
           alt="Store logo"
-          className="h-12 w-auto object-contain"
+          className="h-[80px] w-auto object-contain"
           priority
         />
       );

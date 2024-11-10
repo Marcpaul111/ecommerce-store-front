@@ -65,7 +65,7 @@ export const CartItems: React.FC = () => {
 
                 <div className="flex-grow">
                   <h3 className="font-semibold">{item.name}</h3>
-                  <Currency value={item.price} />
+                  <Currency value={parseFloat(item.price) * item.quantity} />
                   <div className="flex items-center mt-2">
                     <Button
                       variant="outline"
