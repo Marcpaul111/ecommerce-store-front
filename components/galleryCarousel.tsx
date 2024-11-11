@@ -25,71 +25,71 @@ export default function ImageSlider({ images, mobileImages }: ImageSliderProps) 
       setIsMobile(window.innerWidth <= 767);
     };
 
-    // Set initial state
     handleResize();
     setIsMounted(true);
 
-    // Add event listener
     window.addEventListener('resize', handleResize);
-
-    // Cleanup
+    
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Prevent hydration mismatch by not rendering until mounted
   if (!isMounted) {
     return (
-      <div className="w-full h-[400px] sm:h-[400px]  md:h-[500px] bg-gray-100 animate-pulse rounded-lg" />
+      <div className="relative w-full aspect-[16/9] bg-gray-100 animate-pulse rounded-lg" />
     );
   }
 
   return (
-    <Carousel options={OPTIONS}>
-      <SliderContainer>
-        {isMobile ? (
-          mobileImages.map((mobileImage, index) => (
-            <Slider className="w-full" key={`mobile-${index}`}>
-              <div className="dark:bg-black bg-white md:h-[300px] h-[400px] w-full">
-                {mobileImage.mobileUrl ? (
-                  <Image
-                    src={mobileImage.mobileUrl}
-                    width={700}
-                    height={400}
-                    alt={`Mobile slider image ${index + 1}`}
-                    className="object-cover rounded-lg w-full h-full"
-                    priority={index === 0}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-lg" />
-                )}
-              </div>
-            </Slider>
-          ))
-        ) : (
-          images.map((image, index) => (
-            <Slider className="w-full" key={image.id}>
-              <div className="dark:bg-black bg-white  md:h-[500px] sm:h-full h-[400px] w-full">
-                {image.url ? (
-                  <Image
-                    src={image.url}
-                    width={1200}
-                    height={900}
-                    alt={image.name || `Slider image ${index + 1}`}
-                    className="object-cover rounded-lg w-full h-full"
-                    priority={index === 0}
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-lg" />
-                )}
-              </div>
-            </Slider>
-          ))
-        )}
-      </SliderContainer>
+    <div className="w-full max-w-[2000px] mx-auto">
+      <Carousel options={OPTIONS}>
+        <SliderContainer>
+          {isMobile ? (
+            mobileImages.map((mobileImage, index) => (
+              <Slider className="relative w-full" key={`mobile-${index}`}>
+                <div className="relative aspect-[5/5] w-full overflow-hidden rounded-lg">
+                  {mobileImage.mobileUrl ? (
+                    <Image
+                      src={mobileImage.mobileUrl}
+                      alt={`Mobile slider image ${index + 1}`}
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 80vw"
+                      priority={index === 0}
+                      fill
+                      quality={90}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+                  )}
+                </div>
+              </Slider>
+            ))
+          ) : (
+            images.map((image, index) => (
+              <Slider className="relative w-full" key={image.id}>
+                <div className="relative aspect-[20/8] md:aspect-[17/9] w-full overflow-hidden rounded-lg">
+                  {image.url ? (  //1080 x 1350 
+                    <Image
+                      src={image.url}
+                      alt={image.name || `Slider image ${index + 1}`}
+                      className="object-cover"
+                      sizes="(max-width: 768px) 90vw, (max-width: 1200px) 80vw, 70vw"
+                      priority={index === 0}
+                      fill
+                      quality={90}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 rounded-lg" />
+                  )}
+                </div>
+              </Slider>
+            ))
+          )}
+        </SliderContainer>
 
-      <div className="flex justify-center py-2">
-        <SliderDotButton />
-      </div>
-    </Carousel>
+        <div className="flex justify-center py-4">
+          <SliderDotButton />
+        </div>
+      </Carousel>
+    </div>
   );
 }

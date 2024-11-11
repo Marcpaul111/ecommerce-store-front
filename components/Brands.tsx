@@ -24,12 +24,12 @@ function Brands() {
         </h3>
       </div>
       <div className="w-full text-5xl py-8  inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] ">
-        <ul className="flex items-center justify-center md:justify-start sm:[&_li]:mx-8 [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll">
+        <ul className="flex items-center justify-center md:justify-start sm:[&_li]:mx-8 [&_li]:mx-4 [&_img]:max-w-none animate-infinite-scroll sm:gap-x-6">
           <li>
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={apple} alt="" />
             </a>
@@ -38,7 +38,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={hermes} alt="" />
             </a>
@@ -47,7 +47,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={samsung} alt="" />
             </a>
@@ -56,7 +56,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={adidas} alt="" />
             </a>
@@ -65,7 +65,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={nokia} alt="" />
             </a>
@@ -74,7 +74,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={nike} alt="" />
             </a>
@@ -83,7 +83,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={levis} alt="" />
             </a>
@@ -92,7 +92,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={dior} alt="" />
             </a>
@@ -101,7 +101,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={supreme} alt="" />
             </a>
@@ -110,7 +110,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={chanel} alt="" />
             </a>
@@ -124,7 +124,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={apple} alt="" />
             </a>
@@ -133,7 +133,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={hermes} alt="" />
             </a>
@@ -142,7 +142,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={samsung} alt="" />
             </a>
@@ -151,7 +151,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={adidas} alt="" />
             </a>
@@ -160,7 +160,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={nokia} alt="" />
             </a>
@@ -169,7 +169,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={nike} alt="" />
             </a>
@@ -178,7 +178,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={levis} alt="" />
             </a>
@@ -187,7 +187,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={dior} alt="" />
             </a>
@@ -196,7 +196,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={supreme} alt="" />
             </a>
@@ -205,7 +205,7 @@ function Brands() {
             <a
               target="_blank"
               href="https://x.com/naymur_dev"
-              className=" bg-none  text-primary-foreground text-2xl  sm:grid hidden place-content-center  p-2   rounded-md"
+              className=" bg-none  text-primary-foreground text-2xl  sm:grid  place-content-center  p-2   rounded-md"
             >
               <Image src={chanel} alt="" />
             </a>
